@@ -11,6 +11,10 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   useEffect(() => { const onScroll = () => setScrolled(window.scrollY > 16); onScroll(); window.addEventListener('scroll', onScroll); return () => window.removeEventListener('scroll', onScroll); }, []);
+  useEffect(() => {
+    document.body.classList.toggle('nav-open', open);
+    return () => document.body.classList.remove('nav-open');
+  }, [open]);
   if (location.pathname.startsWith('/admin')) return null;
   const links = [['Home', '#home'], ['Products', '#products'], ['Categories', '#categories'], ['About', '#about']];
   const go = (hash) => { setOpen(false); setTimeout(() => document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' }), 30); };
@@ -21,7 +25,8 @@ export default function Navbar() {
         {links.map(([label, hash]) => <Link key={hash} to={`/${hash}`} onClick={() => go(hash)}>{label}</Link>)}
         <Link className="nav-admin" to="/admin">Admin</Link>
       </nav>
-      <button className="menu-button" onClick={() => setOpen(!open)} aria-label="Toggle navigation"><Icon name={open ? 'close' : 'menu'} size={24} /></button>
+      {open && <button className="mobile-nav-backdrop" onClick={() => setOpen(false)} aria-label="Close navigation" />}
+      <button className="menu-button" onClick={() => setOpen(!open)} aria-label="Toggle navigation" aria-expanded={open}><Icon name={open ? 'close' : 'menu'} size={24} /></button>
     </div>
   </header>;
 }

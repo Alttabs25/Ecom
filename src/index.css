@@ -21,6 +21,7 @@ body{font-family:'Manrope',sans-serif}
 .product-card-foot button{display:grid;flex:0 0 35px;place-items:center;padding:0;line-height:0}
 .product-card-foot button svg{display:block;margin:auto;transform:translateX(1px)}
 .card-head h2,.category-form h2,.dialog-head h2{font-weight:700;line-height:1.3}
+.mobile-nav-backdrop{display:none}
 .category-filter-shell{position:relative;max-width:100%}
 .hero-product{column-gap:14px;align-items:end}
 .hero-placeholder img{object-position:center 46%}
@@ -46,6 +47,19 @@ body{font-family:'Manrope',sans-serif}
   .pill-one{top:17px;left:-10px}
   .pill-two{display:none}
 }
+@media(max-width:720px){
+  body.nav-open{overflow:hidden}
+  .navbar{z-index:80}
+  .nav-links{display:flex;position:fixed;z-index:62;top:0;right:0;bottom:0;left:auto;width:min(82vw,330px);height:100dvh;padding:94px 24px 28px;background:#fff;border:0;border-radius:24px 0 0 24px;box-shadow:-22px 0 60px #35283f2b;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:5px;transform:translateX(105%);visibility:hidden;transition:transform .3s ease,visibility .3s}
+  .nav-links.open{display:flex;transform:translateX(0);visibility:visible}
+  .nav-links a{padding:14px 15px;border-radius:11px;font-size:15px}
+  .nav-links a:hover{background:#f4eff5}
+  .nav-admin{margin-top:10px;text-align:center;background:#f1eaf3;border:0}
+  .mobile-nav-backdrop{display:block;position:fixed;z-index:58;inset:0;width:100%;height:100dvh;border:0;background:#251d2c66;backdrop-filter:blur(3px);animation:navFade .25s ease}
+  .menu-button{position:relative;z-index:70;width:42px;height:42px;padding:0;border-radius:50%;place-items:center}
+  .nav-open .menu-button{display:grid;background:#f3edf5;color:var(--purple)}
+}
+@keyframes navFade{from{opacity:0}to{opacity:1}}
 @media(max-width:420px){
   .hero{padding-bottom:54px}
   .hero-art{width:min(84%,320px)}
