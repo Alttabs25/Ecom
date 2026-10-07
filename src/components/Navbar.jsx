@@ -23,7 +23,6 @@ export default function Navbar() {
       <Brand />
       <nav className={`nav-links ${open ? 'open' : ''}`} aria-label="Main navigation">
         {links.map(([label, hash]) => <Link key={hash} to={`/${hash}`} onClick={() => go(hash)}>{label}</Link>)}
-        <Link className="nav-admin" to="/admin">Admin</Link>
       </nav>
       {open && <button className="mobile-nav-backdrop" onClick={() => setOpen(false)} aria-label="Close navigation" />}
       <button className="menu-button" onClick={() => setOpen(!open)} aria-label="Toggle navigation" aria-expanded={open}><Icon name={open ? 'close' : 'menu'} size={24} /></button>
