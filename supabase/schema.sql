@@ -34,6 +34,8 @@ alter table public.profiles enable row level security;
 alter table public.categories enable row level security;
 alter table public.products enable row level security;
 
+create policy "Admins can read own profile" on public.profiles for select to authenticated
+  using (id = auth.uid());
 create policy "Catalog categories are public" on public.categories for select using (true);
 create policy "Catalog products are public" on public.products for select using (true);
 create policy "Admins manage categories" on public.categories for all to authenticated

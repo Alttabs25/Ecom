@@ -5,9 +5,16 @@ insert into storage.buckets (id, name, public)
 values ('product-images', 'product-images', true)
 on conflict (id) do update set public = true;
 
+alter table public.profiles enable row level security;
+
+drop policy if exists "Admins can read own profile" on public.profiles;
 drop policy if exists "Public product images" on storage.objects;
 drop policy if exists "Admins upload product images" on storage.objects;
 drop policy if exists "Admins update product images" on storage.objects;
+
+create policy "Admins can read own profile"
+on public.profiles for select to authenticated
+using (id = auth.uid());
 
 create policy "Public product images"
 on storage.objects for select
