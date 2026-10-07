@@ -89,10 +89,17 @@ export const catalogService = {
     const safeName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, '-')}`;
     const response = await fetch(`${supabaseUrl}/storage/v1/object/product-images/${safeName}`, {
       method: 'POST',
-      headers: { apikey: supabaseKey, Authorization: `Bearer ${token}`, 'Content-Type': file.type, 'x-upsert': 'true' },
+      headers: { apikey: supabaseKey, Authorization: `Bearer ${token}`, 'Content-Type': file.type, 'x-upsert': 'false' },
       body: file,
     });
-    if (!response.ok) throw new Error('Image upload failed.');
+    if (!response.ok) {
+      const details = await response.json().catch(() => ({}));
+      const message = details.message || details.error || details.error_description || `Storage request failed (${response.status}).`;
+      if (response.status === 401) throw new Error('Your admin session has expired. Sign out, sign in again, then retry the upload.');
+      if (response.status === 403) throw new Error(`Supabase blocked the upload: ${message}`);
+      if (response.status === 404) throw new Error('The Supabase “product-images” storage bucket was not found.');
+      throw new Error(`Image upload failed: ${message}`);
+    }
     return `${supabaseUrl}/storage/v1/object/public/product-images/${safeName}`;
   },
 };
