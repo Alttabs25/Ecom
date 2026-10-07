@@ -16,6 +16,10 @@ export function Icon({ name, size = 20, strokeWidth = 1.8, className = '' }) {
     upload: <><path d="M12 16V4M7 9l5-5 5 5M5 20h14" /></>,
     check: <><path d="m5 12 4 4L19 6" /></>,
     chevron: <><path d="m9 18 6-6-6-6" /></>,
+    facebook: <><path d="M14 8h3V4h-3c-3 0-5 2-5 5v3H6v4h3v5h4v-5h3l1-4h-4V9c0-.7.3-1 1-1Z" /></>,
+    instagram: <><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r=".7" fill="currentColor" stroke="none" /></>,
+    tiktok: <><path d="M15 4v11.2a4.2 4.2 0 1 1-3.5-4.1" /><path d="M15 4c.5 2.4 1.9 3.8 4 4" /></>,
+    messenger: <><path d="M21 11.5a8.5 8.5 0 0 1-9 8.5 9.7 9.7 0 0 1-3.2-.6L4 21l1.4-4.2A8 8 0 0 1 3 11.5a8.5 8.5 0 0 1 9-8.5 8.5 8.5 0 0 1 9 8.5Z" /><path d="m7.5 14 3-3 2 2 4-4" /></>,
   };
   return <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
 }
