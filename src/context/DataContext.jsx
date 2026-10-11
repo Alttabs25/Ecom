@@ -18,8 +18,8 @@ const readProducts = () => {
 
 export function DataProvider({ children }) {
   const { getAccessToken } = useAuth();
-  const [products, setProducts] = useState(readProducts);
-  const [categories, setCategories] = useState(() => read(CATEGORY_KEY, initialCategories));
+  const [products, setProducts] = useState(() => isSupabaseConfigured ? [] : readProducts());
+  const [categories, setCategories] = useState(() => isSupabaseConfigured ? [] : read(CATEGORY_KEY, initialCategories));
   const [loading, setLoading] = useState(isSupabaseConfigured);
   const [notice, setNotice] = useState('');
 
@@ -28,7 +28,11 @@ export function DataProvider({ children }) {
     catalogService.load().then(({ products: remoteProducts, categories: remoteCategories }) => {
       setProducts(remoteProducts);
       setCategories(remoteCategories);
-    }).catch(() => setNotice('Could not reach Supabase. Showing the local catalog.')).finally(() => setLoading(false));
+    }).catch(() => {
+      setProducts(readProducts());
+      setCategories(read(CATEGORY_KEY, initialCategories));
+      setNotice('Could not reach Supabase. Showing the local catalog.');
+    }).finally(() => setLoading(false));
   }, []);
 
   const persist = (key, value) => localStorage.setItem(key, JSON.stringify(value));
