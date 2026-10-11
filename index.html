@@ -6,9 +6,38 @@
     <meta name="description" content="Browse personalized pouches, keepsakes, souvenirs, and accessories from Make It KMN." />
     <meta name="theme-color" content="#E3EED4" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230F2A1D'/><text x='50' y='64' text-anchor='middle' font-family='sans-serif' font-size='34' font-weight='700' fill='%23E3EED4'>KMN</text></svg>" />
+    <style>
+      html,body{margin:0;background:#E3EED4}body.site-loading{overflow:hidden}
+      #boot-loader{position:fixed;z-index:1000;inset:0;width:100%;min-height:100vh;min-height:100dvh;display:grid;place-items:center;overflow:hidden;background:linear-gradient(145deg,#f7faef 0%,#E3EED4 58%,#AEC3B0 100%);opacity:1;visibility:visible;transition:opacity .45s ease,visibility .45s ease}
+      #boot-loader.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+      .boot-loader__glow{position:absolute;width:min(66vw,680px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#f7faefb8 0%,#e3eed475 42%,transparent 70%);animation:boot-glow 2.6s ease-in-out infinite}
+      .boot-loader__content{position:relative;display:grid;justify-items:center;gap:20px}
+      .boot-loader__content p{margin:0;color:#4f6854;font:700 10px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase}
+      .boot-kmn{display:flex;align-items:center;gap:8px;padding:20px 24px}
+      .boot-kmn__letter{--delay:calc(var(--letter-index) * .16s);position:relative;width:68px;height:74px}
+      .boot-kmn__letter:before{content:"";position:absolute;z-index:2;left:50%;bottom:2px;width:7px;height:7px;border-radius:50%;background:#6B9071;box-shadow:0 0 0 5px #6b90711c;animation:boot-dot 1.8s cubic-bezier(.785,.135,.15,.86) var(--delay) infinite}
+      .boot-kmn__letter svg{display:block;width:100%;height:100%;overflow:visible}
+      .boot-kmn__letter text{fill:#37553414;stroke:#0F2A1D;stroke-width:2.2px;stroke-linejoin:round;paint-order:stroke;stroke-opacity:.2;font:700 58px Arial,sans-serif;stroke-dasharray:240;stroke-dashoffset:240;animation:boot-letter 1.8s cubic-bezier(.785,.135,.15,.86) var(--delay) infinite}
+      @keyframes boot-letter{0%{stroke-dashoffset:240;stroke-opacity:.2}45%,72%{stroke-dashoffset:0;stroke-opacity:1;fill:#37553420}100%{stroke-dashoffset:-240;stroke-opacity:.2}}
+      @keyframes boot-dot{0%{transform:translate(-31px,-5px);opacity:.3}35%{transform:translate(-4px,-68px);opacity:1}68%{transform:translate(27px,-5px);opacity:1}100%{transform:translate(-31px,-5px);opacity:.3}}
+      @keyframes boot-glow{50%{transform:scale(1.08);opacity:.65}}
+      @media(max-width:480px){.boot-kmn{gap:2px;padding-inline:12px}.boot-kmn__letter{width:58px;height:66px}.boot-kmn__letter text{font-size:52px}.boot-loader__content p{font-size:9px;letter-spacing:.16em}}
+      @media(prefers-reduced-motion:reduce){.boot-loader__glow,.boot-kmn__letter:before,.boot-kmn__letter text{animation:none}.boot-kmn__letter text{stroke-dashoffset:0;fill:#37553412}}
+    </style>
     <title>Make It KMN — Personalized Product Catalog</title>
   </head>
-  <body>
+  <body class="site-loading">
+    <div id="boot-loader" role="status" aria-live="polite" aria-label="Loading Make It KMN">
+      <div class="boot-loader__glow"></div>
+      <div class="boot-loader__content">
+        <div class="boot-kmn" aria-hidden="true">
+          <div class="boot-kmn__letter" style="--letter-index:0"><svg viewBox="0 0 72 80"><text x="36" y="61" text-anchor="middle">K</text></svg></div>
+          <div class="boot-kmn__letter" style="--letter-index:1"><svg viewBox="0 0 72 80"><text x="36" y="61" text-anchor="middle">M</text></svg></div>
+          <div class="boot-kmn__letter" style="--letter-index:2"><svg viewBox="0 0 72 80"><text x="36" y="61" text-anchor="middle">N</text></svg></div>
+        </div>
+        <p>Making something meaningful…</p>
+      </div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
