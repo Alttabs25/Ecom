@@ -7,7 +7,7 @@ import { Icon } from '../components/Icons';
 export default function Login() {
   const { session, login, demoMode } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState(demoMode ? 'admin@lumiere.ph' : '');
+  const [email, setEmail] = useState(demoMode ? 'admin@makeitkmn.ph' : '');
   const [password, setPassword] = useState(demoMode ? 'admin123' : '');
   const [error, setError] = useState(''); const [loading, setLoading] = useState(false);
   if (session) return <Navigate to="/admin" replace />;

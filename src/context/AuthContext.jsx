@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from 'react';
 import { catalogService, isSupabaseConfigured } from '../lib/catalogService';
 
 const AuthContext = createContext(null);
-const SESSION_KEY = 'lumiere_admin_session';
+const SESSION_KEY = 'make_it_kmn_admin_session';
 
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(() => JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'));
@@ -11,7 +11,7 @@ export function AuthProvider({ children }) {
     try {
       const next = isSupabaseConfigured
         ? await catalogService.signIn(email, password)
-        : email === 'admin@lumiere.ph' && password === 'admin123'
+        : email === 'admin@makeitkmn.ph' && password === 'admin123'
           ? { access_token: 'demo-session', user: { email } }
           : null;
       if (!next) return { success: false, message: 'Incorrect email or password.' };

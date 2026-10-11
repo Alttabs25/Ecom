@@ -72,3 +72,25 @@ body{font-family:'Manrope',sans-serif}
   .hero-product span,.hero-product strong,.hero-product b{grid-column:1}
   .hero-product b{margin-top:2px}
 }
+
+/* Make It KMN brand palette */
+:root{--ink:#0F2A1D;--muted:#4f6854;--line:#cbd9c8;--cream:#f7faef;--purple:#375534;--lav:#E3EED4;--mint:#AEC3B0;--shadow:0 18px 55px #0f2a1d1c}
+body{background:var(--cream)}
+.navbar.scrolled{background:#f7faefe8;border-color:#37553424}
+.brand{gap:12px}
+.brand-mark{position:relative;width:56px;height:48px;overflow:hidden;border:1px solid #aec3b0;border-radius:12px;background:#AEC3B0;box-shadow:0 6px 18px #0f2a1d18}
+.brand-mark img{position:absolute;width:72px;height:auto;max-width:none;left:50%;top:50%;object-fit:contain;transform:translate(-50%,-49%)}
+.brand b{color:var(--ink);font-size:18px}.brand small{color:#6B9071;font-size:6px;letter-spacing:.2em}
+.hero{background:linear-gradient(125deg,#E3EED4 0%,#dbe8d2 54%,#AEC3B0 100%)}
+.hero:before{background-image:radial-gradient(#37553425 1px,transparent 1px)}
+.orb-one{background:radial-gradient(circle at 35% 30%,#E3EED4,#AEC3B0 38%,#6B9071 68%,transparent 70%)}.orb-two{background:#6B9071;opacity:.18}
+.button-primary{background:linear-gradient(135deg,#375534,#0F2A1D);box-shadow:0 10px 26px #0f2a1d38}
+.shine-card{background:linear-gradient(145deg,#e3eed4d9,#aec3b099);border-color:#E3EED4;box-shadow:0 30px 80px #0f2a1d24}
+.image-placeholder{color:#375534;background:linear-gradient(145deg,#E3EED4,#AEC3B0 50%,#6B9071)}
+.float-pill{background:#e3eed4ed;border-color:#E3EED4;box-shadow:0 12px 28px #0f2a1d21}
+.category-filters button.active{background:#0F2A1D}.product-card{border-color:#d7e1d2}.product-meta>span:first-child{color:#375534}.loading-grid div{background:#dce7d7}
+.about{background:#E3EED4}.about-art{background:#AEC3B0;border-radius:36px;box-shadow:0 24px 60px #0f2a1d1f}.about-art:after{display:none}.about-art img{position:absolute;top:50%;left:50%;width:78%;height:auto;max-width:none;object-fit:contain;transform:translate(-50%,-50%)}
+.footer{background:#0F2A1D;color:#E3EED4}.footer .brand b{color:#E3EED4}.footer .brand small,.footer p,.footer small,.footer-meta span{color:#AEC3B0}
+.custom-callout,.demo-note,.admin-sidebar nav a.active{background:#E3EED4}.admin-shell{background:#f2f6eb}.stat-icon{background:#AEC3B0}.table-category{background:#E3EED4}
+.login-page{background:radial-gradient(circle at 20% 20%,#AEC3B0,transparent 32%),var(--cream)}
+@media(max-width:720px){.nav-links a:hover,.nav-admin,.nav-open .menu-button{background:#E3EED4}.brand-mark{width:50px;height:44px}}

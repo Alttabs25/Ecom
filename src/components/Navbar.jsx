@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Icon } from './Icons';
+import logo from '../assets/LOGO.jpg';
 
 export function Brand({ compact = false }) {
-  return <Link className="brand" to="/" aria-label="Lumière Keepsakes home"><span className="brand-mark">L</span>{!compact && <span><b>Lumière</b><small>KEEPSAKES</small></span>}</Link>;
+  return <Link className="brand" to="/" aria-label="Make It KMN home"><span className="brand-mark" aria-hidden="true"><img src={logo} alt="" /></span>{!compact && <span><b>Make It KMN</b><small>PERSONALIZED KEEPSAKES</small></span>}</Link>;
 }
 
 export default function Navbar() {

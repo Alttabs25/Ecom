@@ -7,6 +7,7 @@ import ProductGrid from '../components/ProductGrid';
 import ProductModal from '../components/ProductModal';
 import Footer from '../components/Footer';
 import { Icon } from '../components/Icons';
+import logo from '../assets/LOGO.jpg';
 
 export default function Home() {
   const { products, categories, loading, notice } = useData();
@@ -27,7 +28,7 @@ export default function Home() {
       </section>
 
       <section className="about section" id="about">
-        <div className="about-card"><div className="about-art"><span className="arch arch-one" /><span className="arch arch-two" /><Icon name="sparkles" size={42} /></div><div><span className="eyebrow">A little about us</span><h2>Beautifully yours, down to the details.</h2><p>At Lumière, we believe the smallest things can carry the biggest meaning. Our pieces are thoughtfully personalized to celebrate names, friendships, milestones, and all the moments in between.</p><div className="about-values"><span>Personal touches</span><span>Small-batch care</span><span>Made in the Philippines</span></div></div></div>
+        <div className="about-card"><div className="about-art"><img src={logo} alt="Make It KMN logo" /></div><div><span className="eyebrow">A little about us</span><h2>Beautifully yours, down to the details.</h2><p>At Make It KMN, we believe the smallest things can carry the biggest meaning. Our pieces are thoughtfully personalized to celebrate names, friendships, milestones, and all the moments in between.</p><div className="about-values"><span>Personal touches</span><span>Small-batch care</span><span>Made in the Philippines</span></div></div></div>
       </section>
     </main>
     <Footer />
