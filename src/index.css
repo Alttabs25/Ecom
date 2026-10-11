@@ -99,9 +99,20 @@ body{background:var(--cream)}
 .hero-typed-text{display:block;width:100%;min-width:0;color:var(--purple);font-style:italic;white-space:nowrap}
 .hero-placeholder.is-loading:before{animation-duration:1.4s}
 .hero-placeholder.is-loading>span{position:relative;padding:9px 14px;border-radius:99px;background:#e3eed499;color:var(--purple);font-size:11px;font-weight:700}
+.hero-feature-card{display:block;width:100%;color:inherit;font:inherit;text-align:left;cursor:pointer;animation:hero-feature-fade .45s ease}
+.hero-feature-card:disabled{cursor:default}
+.hero-feature-card:focus-visible{outline:3px solid #6B9071;outline-offset:5px}
+.hero-carousel-arrows{position:absolute;z-index:4;inset:42% -22px auto;display:flex;justify-content:space-between;pointer-events:none}
+.hero-carousel-arrows button{width:42px;height:42px;padding:0;border:1px solid #aec3b0;border-radius:50%;display:grid;place-items:center;background:#f7faeff2;color:var(--ink);box-shadow:0 8px 24px #0f2a1d26;pointer-events:auto;transition:transform .2s,background .2s}
+.hero-carousel-arrows button:first-child svg{transform:rotate(180deg)}
+.hero-carousel-arrows button:hover{background:#E3EED4;transform:scale(1.06)}
+.hero-carousel-dots{position:absolute;z-index:4;left:50%;bottom:-34px;display:flex;gap:8px;transform:translateX(-50%)}
+.hero-carousel-dots button{width:8px;height:8px;padding:0;border:0;border-radius:99px;background:#6B907166;transition:width .25s,background .25s}
+.hero-carousel-dots button.active{width:25px;background:var(--purple)}
 .text-type__cursor{display:inline-block;margin-left:.04em;color:#6B9071;font-style:normal;animation:text-type-blink var(--cursor-blink-duration,.5s) ease-in-out infinite alternate}
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 @keyframes text-type-blink{from{opacity:1}to{opacity:0}}
+@keyframes hero-feature-fade{from{opacity:.25}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.text-type__cursor{animation:none}}
 @media(min-width:721px){.hero-inner{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}.hero-copy{min-width:0}.hero-art{width:100%}}
-@media(max-width:720px){.hero-typed-text{white-space:normal}}
+@media(max-width:720px){.hero-typed-text{white-space:normal}.hero-carousel-arrows{inset:39% -14px auto}.hero-carousel-arrows button{width:38px;height:38px}.hero-carousel-dots{bottom:-28px}}

@@ -15,9 +15,9 @@ export default function Home() {
   const [category, setCategory] = useState('All');
   const [selected, setSelected] = useState(null);
   const visible = useMemo(() => products.filter((product) => (category === 'All' || product.category === category) && product.name.toLowerCase().includes(search.toLowerCase().trim())), [products, category, search]);
-  const featured = loading ? null : products.find((product) => product.featured);
+  const featuredProducts = useMemo(() => loading ? [] : products.filter((product) => product.featured), [products, loading]);
   return <>
-    <Hero featured={featured} loading={loading} />
+    <Hero featuredProducts={featuredProducts} loading={loading} onSelect={setSelected} />
     {notice && <div className="site-notice">{notice}</div>}
     <main>
       <section className="catalog section" id="products">
