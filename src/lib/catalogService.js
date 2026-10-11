@@ -63,6 +63,9 @@ export const catalogService = {
   async signIn(email, password) {
     return request('/auth/v1/token?grant_type=password', { method: 'POST', body: JSON.stringify({ email, password }) });
   },
+  async refreshSession(refreshToken) {
+    return request('/auth/v1/token?grant_type=refresh_token', { method: 'POST', body: JSON.stringify({ refresh_token: refreshToken }) });
+  },
   async addProduct(product, token) {
     const [row] = await request('/rest/v1/products', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify(toRow(product)) }, token);
     return mapProduct(row);
@@ -86,6 +89,7 @@ export const catalogService = {
     return request(`/rest/v1/categories?id=eq.${encodeURIComponent(id)}`, { method: 'DELETE' }, token);
   },
   async uploadImage(file, token) {
+    if (!token) throw new Error('Your admin session is missing. Sign out, sign in again, then retry the upload.');
     const safeName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, '-')}`;
     const response = await fetch(`${supabaseUrl}/storage/v1/object/product-images/${safeName}`, {
       method: 'POST',

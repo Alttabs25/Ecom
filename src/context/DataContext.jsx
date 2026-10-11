@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { initialCategories, initialProducts } from '../data/sampleData';
 import { catalogService, isSupabaseConfigured } from '../lib/catalogService';
+import { useAuth } from './AuthContext';
 
 const DataContext = createContext(null);
 const PRODUCT_KEY = 'lumiere_products';
@@ -16,6 +17,7 @@ const readProducts = () => {
 };
 
 export function DataProvider({ children }) {
+  const { getAccessToken } = useAuth();
   const [products, setProducts] = useState(readProducts);
   const [categories, setCategories] = useState(() => read(CATEGORY_KEY, initialCategories));
   const [loading, setLoading] = useState(isSupabaseConfigured);
@@ -30,32 +32,30 @@ export function DataProvider({ children }) {
   }, []);
 
   const persist = (key, value) => localStorage.setItem(key, JSON.stringify(value));
-  const token = () => JSON.parse(localStorage.getItem('lumiere_admin_session') || 'null')?.access_token;
-
   const addProduct = async (product) => {
-    const created = isSupabaseConfigured ? await catalogService.addProduct(product, token()) : { ...product, id: crypto.randomUUID() };
+    const created = isSupabaseConfigured ? await catalogService.addProduct(product, await getAccessToken()) : { ...product, id: crypto.randomUUID() };
     setProducts((items) => { const next = [created, ...items]; if (!isSupabaseConfigured) persist(PRODUCT_KEY, next); return next; });
   };
   const updateProduct = async (id, product) => {
-    const updated = isSupabaseConfigured ? await catalogService.updateProduct(id, product, token()) : { ...product, id };
+    const updated = isSupabaseConfigured ? await catalogService.updateProduct(id, product, await getAccessToken()) : { ...product, id };
     setProducts((items) => { const next = items.map((item) => item.id === id ? updated : item); if (!isSupabaseConfigured) persist(PRODUCT_KEY, next); return next; });
   };
   const deleteProduct = async (id) => {
-    if (isSupabaseConfigured) await catalogService.deleteProduct(id, token());
+    if (isSupabaseConfigured) await catalogService.deleteProduct(id, await getAccessToken());
     setProducts((items) => { const next = items.filter((item) => item.id !== id); if (!isSupabaseConfigured) persist(PRODUCT_KEY, next); return next; });
   };
   const addCategory = async (category) => {
-    const created = isSupabaseConfigured ? await catalogService.addCategory(category, token()) : { ...category, id: category.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') };
+    const created = isSupabaseConfigured ? await catalogService.addCategory(category, await getAccessToken()) : { ...category, id: category.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') };
     setCategories((items) => { const next = [...items, created]; if (!isSupabaseConfigured) persist(CATEGORY_KEY, next); return next; });
   };
   const updateCategory = async (id, category) => {
-    const updated = isSupabaseConfigured ? await catalogService.updateCategory(id, category, token()) : { ...category, id };
+    const updated = isSupabaseConfigured ? await catalogService.updateCategory(id, category, await getAccessToken()) : { ...category, id };
     setCategories((items) => { const next = items.map((item) => item.id === id ? updated : item); if (!isSupabaseConfigured) persist(CATEGORY_KEY, next); return next; });
   };
   const deleteCategory = async (id) => {
     const current = categories.find((item) => item.id === id);
     if (products.some((product) => product.category === current?.name)) throw new Error('Move products out of this category before deleting it.');
-    if (isSupabaseConfigured) await catalogService.deleteCategory(id, token());
+    if (isSupabaseConfigured) await catalogService.deleteCategory(id, await getAccessToken());
     setCategories((items) => { const next = items.filter((item) => item.id !== id); if (!isSupabaseConfigured) persist(CATEGORY_KEY, next); return next; });
   };
 

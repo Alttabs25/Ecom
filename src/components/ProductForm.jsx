@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Icon } from './Icons';
 import { isSupabaseConfigured } from '../lib/catalogService';
+import { useAuth } from '../context/AuthContext';
 
 const blank = { name: '', category: '', price: '', shortDescription: '', description: '', availability: 'Available', colors: [], sizes: [], customization: '', featured: false, image: '' };
 const split = (value) => value.split(',').map((item) => item.trim()).filter(Boolean);
 
 export default function ProductForm({ product, categories, onSave, onCancel, uploadImage }) {
+  const { getAccessToken } = useAuth();
   const [form, setForm] = useState(blank);
   const [colors, setColors] = useState('');
   const [sizes, setSizes] = useState('');
@@ -17,7 +19,7 @@ export default function ProductForm({ product, categories, onSave, onCancel, upl
     if (!file) return;
     if (file.size > 5 * 1024 * 1024) return setError('Please choose an image smaller than 5MB.');
     if (isSupabaseConfigured) {
-      try { setSaving(true); update('image', await uploadImage(file, JSON.parse(localStorage.getItem('lumiere_admin_session'))?.access_token)); } catch (e) { setError(e.message); } finally { setSaving(false); }
+      try { setError(''); setSaving(true); update('image', await uploadImage(file, await getAccessToken())); } catch (e) { setError(e.message); } finally { setSaving(false); }
     } else {
       const reader = new FileReader();
       reader.onload = () => update('image', reader.result);
