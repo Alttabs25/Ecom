@@ -3,7 +3,7 @@ import { Icon } from './Icons';
 export default function Footer() {
   const socials = [
     ['Facebook', 'facebook', 'https://facebook.com/'],
-    ['Instagram', 'instagram', 'https://instagram.com/'],
+    ['Instagram', 'instagram', 'https://www.instagram.com/makeit.kmn.ph'],
     ['TikTok', 'tiktok', 'https://tiktok.com/'],
     ['Messenger', 'messenger', 'https://m.me/'],
   ];
